@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block title %}
+    {{ group.country_name }}
+{% endblock %}
+<!-- This is data page, which shows the visual emission data of one country -->
+<!-- This page will use main template as parent -->
+{% block content %}
+    <!-- In right part, there will be two parts: country information and visual data -->
+    <!-- there are two kinds of information, for countries and groups, controled by 'is_country' -->
+    <!-- visual data will be shown in line graph or bar gragh -->
+    <h1>{{ group.country_name }}</h1>
+    <p>Please note that this is not a country, but a area or group, which contains a number of countries.</p>
+    {% include 'group_info.html' %}
+{% endblock %}

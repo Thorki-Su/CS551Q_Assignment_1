@@ -1,0 +1,53 @@
+{% extends 'main.html' %}
+
+{% block title %}
+    {{ country.country_name }}
+{% endblock %}
+<!-- This is data page, which shows the visual emission data of one country -->
+<!-- This page will use main template as parent -->
+{% block content %}
+    <!-- In right part, there will be two parts: country information and visual data -->
+    <!-- there are two kinds of information, for countries and groups, controled by 'is_country' -->
+    <!-- visual data will be shown in line graph or bar gragh -->
+    <!-- <h1>{{ country.country_name }}</h1> -->
+    {% include 'country_info.html' %}
+
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <canvas id="emissionChart" width="200" height="100"></canvas>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        const ctx = document.getElementById('emissionChart').getContext('2d');
+        const emissionChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ years|safe }},
+                datasets: [{
+                    label: 'CO2 emissions (metric tons per capita)',
+                    data: {{ emissions|safe }},
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'CO2 emissions'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

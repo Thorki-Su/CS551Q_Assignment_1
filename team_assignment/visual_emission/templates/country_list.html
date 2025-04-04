@@ -1,0 +1,21 @@
+<!-- There will show all countries in a list -->
+<h3>Country List</h3>
+<ul>
+    {% for country in countries %}
+        <li class="list_item">
+            <a href="{% url 'co2:country_detail' country.id %}">
+                {{ country.country_name }} [{{country.country_code}}]
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+<h3>Area & Group List</h3>
+<ul>
+    {% for group in groups %}
+        <li class="list_item">
+            <a href="{% url 'co2:group_detail' group.id %}">
+                {{ group.country_name }} [{{group.country_code}}]
+            </a>
+        </li>
+    {% endfor %}
+</ul>
