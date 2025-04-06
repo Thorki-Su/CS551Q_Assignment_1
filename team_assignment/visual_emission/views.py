@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.http import JsonResponse
 from .models import Country, Data
 import random
 
@@ -33,22 +34,41 @@ def country_detail_view(request, country_id):
     emissions = [data.emission for data in datas]
     countries = Country.objects.filter(is_country=True)
     groups = Country.objects.filter(is_country=False)
+    all_countries = Country.objects.all()
     context = {
         'countries': countries,
         'groups': groups,
         'country': country,
         'years': years,
-        'emissions': emissions
+        'emissions': emissions,
+        'all_countries': all_countries
     }
-    return render(request, 'country_data.html', context=context)
+    return render(request, 'data.html', context=context)
 
 def group_detail_view(request, group_id):
     group = get_object_or_404(Country, id=group_id)
+    datas = Data.objects.filter(country=group).order_by('year')
+    years = [data.year for data in datas]
+    emissions = [data.emission for data in datas]
     countries = Country.objects.filter(is_country=True)
     groups = Country.objects.filter(is_country=False)
+    all_countries = Country.objects.all()
     context = {
         'countries': countries,
         'groups': groups,
-        'group': group
+        'country': group,
+        'years': years,
+        'emissions': emissions,
+        'all_countries': all_countries
     }
-    return render(request, 'group_data.html', context=context)
+    return render(request, 'data.html', context=context)
+
+def country_emissions_api(request, country_id):
+    try:
+        country = Country.objects.get(id=country_id)
+        datas = Data.objects.filter(country=country).order_by('year')
+        years = [data.year for data in datas]
+        emissions = [data.emission for data in datas]
+        return JsonResponse({'years': years, 'emissions': emissions})
+    except Country.DoesNotExist:
+        return JsonResponse({'error':'Country Not Found'}, status=404)

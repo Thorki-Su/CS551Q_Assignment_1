@@ -393,3 +393,10 @@ Then try this command or other commands you want to use:
     select * from visual_emission_country where income_group='High income';
 ```
 This command will show all countries whose income_group is 'High income'.
+
+### Create Templates
+Now we will create templates for our app. Create a new folder named 'templates' under 'visual_emission', inside this folder we will place all templates.
+In settings.py, change this line in TEMPLATES:
+```python
+    'DIRS': [BASE_DIR/'templates'],
+```
