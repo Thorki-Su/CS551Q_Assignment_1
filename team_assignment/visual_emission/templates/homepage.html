@@ -11,4 +11,7 @@
     <div style='margin-top: 30px; padding: 15px; background-color: #e6ffe6; border-left: 5px soild #66cc66; font-size: 1.2em;'>
         <strong style="font-size: 1.4em;">Today's eco-tip: </strong>
         <p style="text-align: center;">{{ eco_tip }}</p>
+    </div>
+
+    <a href="{% url 'co2:feedback' %}">Have problems? Contact Us!</a>
 {% endblock %}

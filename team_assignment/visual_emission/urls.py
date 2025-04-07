@@ -8,4 +8,5 @@ urlpatterns = [
     path('country/<int:country_id>/', views.country_detail_view, name='country_detail'),
     path('group/<int:group_id>/', views.group_detail_view, name='group_detail'),
     path('api/country_emissions/<int:country_id>/', views.country_emissions_api, name='country_emissions_api'),
+    path('feedback', views.feedback, name='feedback'),
 ]

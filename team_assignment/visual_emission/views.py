@@ -72,3 +72,12 @@ def country_emissions_api(request, country_id):
         return JsonResponse({'years': years, 'emissions': emissions})
     except Country.DoesNotExist:
         return JsonResponse({'error':'Country Not Found'}, status=404)
+
+def feedback(request):
+    countries = Country.objects.filter(is_country=True)
+    groups = Country.objects.filter(is_country=False)
+    context = {
+        'countries': countries,
+        'groups': groups,
+    }
+    return render(request, 'feedback.html', context=context)

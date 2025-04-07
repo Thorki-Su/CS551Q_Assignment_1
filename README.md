@@ -43,6 +43,10 @@ Remember to change your path before do any testings or changes:
 ```bash
     cd CS551Q_Assignment_1
 ```
+### Use of <script> in Templates
+Although the project brief states that "there should be no JavaScript in your submission," clarification was sought from the instructor, who confirmed that the restriction refers to the Java programming language, not the client-side scripting language JavaScript. As such, the use of <script> tags in HTML templates for basic front-end interactivity and data visualization is acceptable within the scope of this Python-based assignment.
+In this project, JavaScript is only used to support the dynamic display of CO₂ emissions through charts and user-controlled filters (e.g., selecting countries or adjusting year ranges). This enhances the interpretability of open data and does not compromise the Python-focused nature of the assignment. All core logic, data processing, and database interactions are handled by Django and Python on the server side.
+
 
 
 # The process of this Assignment
@@ -400,3 +404,5 @@ In settings.py, change this line in TEMPLATES:
 ```python
     'DIRS': [BASE_DIR/'templates'],
 ```
+This makes sure it can find our templates.
+
