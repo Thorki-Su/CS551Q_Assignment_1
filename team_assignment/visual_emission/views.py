@@ -3,6 +3,12 @@ from django.http import JsonResponse
 from .models import Country, Data
 import random
 
+# error control for 404 and 500:
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
+
+def custom_500_view(request):
+    return render(request, '500.html', status=500)
 # Create your views here.
 def homepage(request):
     countries = Country.objects.filter(is_country=True)
