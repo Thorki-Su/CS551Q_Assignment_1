@@ -6,8 +6,8 @@
 {% block content %}
     <h1>Here is the homepage!</h1>
     <p>Click a country in the list to continue</p>
-
-    <img src="{% static 'images/green.jpg' %}" alt="A green life picture" style="width: 1000px;">
+    <a href="{% url 'co2:feedback' %}">Have problems? Contact Us!</a>
+    <!-- <img src="{% static 'images/green.jpg' %}" alt="A green life picture" style="width: 1000px;"> -->
 
     <!-- In the right part there will be some different Environmental Information. -->
     <div style='margin-top: 30px; padding: 15px; background-color: #e6ffe6; border-left: 5px soild #66cc66; font-size: 1.2em;'>
@@ -15,6 +15,21 @@
         <p style="text-align: center;">{{ eco_tip }}</p>
     </div>
     
-    <a href="{% url 'co2:feedback' %}">Have problems? Contact Us!</a>
+    <div style="margin-top: 30px;">
+        <h3>Search a country or group</h3>
+        <form method="post" style="margin-bottom: 15px;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" style="padding: 5px 10px;">Search</button>
+        </form>
 
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li style="color: red;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    
 {% endblock %}

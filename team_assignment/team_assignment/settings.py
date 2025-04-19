@@ -25,8 +25,16 @@ SECRET_KEY = 'django-insecure-&l$sn!u#$!1u5(heuxa*w&1ui5yb)zzkl_f8wgljz4hg$t5&m%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['randomevent-spenddemand-8000.codio-box.uk', 'localhost']
+ALLOWED_HOSTS = [
+    'randomevent-spenddemand-8000.codio-box.uk',
+    'pixelcanal-framenato-8000.codio-box.uk',
+    'localhost'
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://randomevent-spenddemand-8000.codio-box.uk",
+    "https://pixelcanal-framenato-8000.codio-box.uk",
+]
 
 # Application definition
 

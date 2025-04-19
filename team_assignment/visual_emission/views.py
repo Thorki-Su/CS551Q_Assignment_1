@@ -1,15 +1,18 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.http import JsonResponse
 from .models import Country, Data
+from .forms import SearchForm
+from django.contrib import messages
 import random
 
+# Create your views here.
 # error control for 404 and 500:
 def custom_404_view(request, exception):
     return render(request, '404.html', status=404)
 
 def custom_500_view(request):
     return render(request, '500.html', status=500)
-# Create your views here.
+
 def homepage(request):
     countries = Country.objects.filter(is_country=True)
     groups = Country.objects.filter(is_country=False)
@@ -26,10 +29,29 @@ def homepage(request):
         "Clothesline dry, wave bye-bye, to the dryer's energy high!",
     ]
     random_tip = random.choice(eco_tips)
+
+    form = SearchForm() # this is a form user can search for a concrete country
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            input = form.cleaned_data['input']
+            country = Country.objects.filter(country_name__iexact=input).first() #first search by country_name
+            if not country:
+                country = Country.objects.filter(country_code__iexact=input).first() #if not find, try with country code
+            
+            if country:
+                if country.is_country:
+                    return redirect('co2:country_detail', country_id=country.id)
+                else:
+                    return redirect('co2:group_detail', group_id=country.id)
+            else:
+                messages.warning(request, 'Cannot find the country!')
+
     context = {
         'countries': countries,
         'groups': groups,
-        'eco_tip':random_tip
+        'eco_tip':random_tip,
+        'form': form,
     }
     return render(request, 'homepage.html', context=context)
 
