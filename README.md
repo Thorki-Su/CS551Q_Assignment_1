@@ -1,8 +1,28 @@
 # CS551Q_Assignment_1
 
-
 ### What is this?
-This `README.md` file (version 1.0) shows some problems I met in the process of doing this Assignment. Hope this will help you.
+This `README.md` file (version 2.0) shows some problems I met in the process of doing this Assignment. Hope this will help you.
+
+### Use of <script> in Templates
+Although the project brief states that "there should be no JavaScript in your submission," clarification was sought from the instructor, who confirmed that the restriction refers to the Java programming language, not the client-side scripting language JavaScript. As such, the use of <script> tags in HTML templates for basic front-end interactivity and data visualization is acceptable within the scope of this Python-based assignment.
+In this project, JavaScript is only used to support the dynamic display of CO₂ emissions through charts and user-controlled filters (e.g., selecting countries or adjusting year ranges). This enhances the interpretability of open data and does not compromise the Python-focused nature of the assignment. All core logic, data processing, and database interactions are handled by Django and Python on the server side.
+
+# How to run through codio (local version)
+first start the virtual environment:
+```bash
+    source .venv/bin/activate
+```
+then you should go into the project file:
+```bash
+    cd team_assignment
+```
+now you can run the server:
+```bash
+    python3 manage.py runserver 0.0.0.0:8000
+```
+Finally you can visit this url to get to our homepage: https://randomevent-spenddemand-8000.codio-box.uk/co2
+
+# Preparations in advance if you are going to edit the assignment files
 
 ### Get python version 3.10.7
 When open your codio link for this Assignment, firstly checking the python version is necessary. Try with this code:
@@ -38,16 +58,27 @@ Then, you can use this commend to download.
 ```bash
     git clone https://github.com/Thorki-Su/CS551Q_Assignment_1.git
 ```
-This will download all the files into your codio as a new folder '*CS551Q_Assignment_1*'.
-Remember to change your path before do any testings or changes:
+This will download all the files into your codio as a new folder '*CS551Q_Assignment_1*'. To make edits and commits easier, please move all files out of the folder.
+The filetree should look at: '.venv', 'team_assignment' and 'sqlite-autoconf-3490100' folders, and other four files.
+
+### Get sqlite version 3.49.1
+Please use this command to check your sqlite version:
 ```bash
-    cd CS551Q_Assignment_1
+    sqlite3 --version
 ```
-### Use of <script> in Templates
-Although the project brief states that "there should be no JavaScript in your submission," clarification was sought from the instructor, who confirmed that the restriction refers to the Java programming language, not the client-side scripting language JavaScript. As such, the use of <script> tags in HTML templates for basic front-end interactivity and data visualization is acceptable within the scope of this Python-based assignment.
-In this project, JavaScript is only used to support the dynamic display of CO₂ emissions through charts and user-controlled filters (e.g., selecting countries or adjusting year ranges). This enhances the interpretability of open data and does not compromise the Python-focused nature of the assignment. All core logic, data processing, and database interactions are handled by Django and Python on the server side.
-
-
+If your version is 3.22, please update the version. In the files downloaded from github, there are prepared sqlite documents.
+```bash
+    cd sqlite-autoconf-3490100
+    ./configure --prefix=$HOME/sqlite
+    make
+    make install
+```
+Then set environment variables so Python uses the new SQLite:
+```bash
+    export PATH="$HOME/sqlite/bin:$PATH"
+    export LD_LIBRARY_PATH="$HOME/sqlite/lib"
+```
+Check version again and your sqlite should be 3.49.1
 
 # The process of this Assignment
 
@@ -182,205 +213,51 @@ Open file parse_cities.py, we will write some commands to load data from our exc
 
             base_dir = Path(__file__).resolve().parent.parent.parent.parent
             book_path = os.path.join(base_dir, 'visual_emission/country_data/data_upload.xlsx')
-            book = load_workbook(book_path)
-            sheet = book['Data']
+            try:
+                book = load_workbook(book_path)
+                sheet = book['Data']
+            except FileNotFoundError:
+                raise CommandError(f"File not found: {book_path}")
+            except KeyError:
+                raise CommandError("Worksheet named 'Data' not found in the Excel file.")
             print(sheet.title)
             max_row_num = sheet.max_row
             max_col_num = sheet.max_column
-            print(max_row_num)
-            print(max_col_num)
+            print(f'Rows: {max_row_num}, Columns: {max_col_num}')
 
-            # placeholder variables for objects
-            c_name = 'country_name'
-            c_code = 'code'
-            is_c = True
-            reg = ''
-            income = ''
-            year_90 = 0.0
-            year_91 = 0.0
-            year_92 = 0.0
-            year_93 = 0.0
-            year_94 = 0.0
-            year_95 = 0.0
-            year_96 = 0.0
-            year_97 = 0.0
-            year_98 = 0.0
-            year_99 = 0.0
-            year_00 = 0.0
-            year_01 = 0.0
-            year_02 = 0.0
-            year_03 = 0.0
-            year_04 = 0.0
-            year_05 = 0.0
-            year_06 = 0.0
-            year_07 = 0.0
-            year_08 = 0.0
-            year_09 = 0.0
-            year_10 = 0.0
-            year_11 = 0.0
-            year_12 = 0.0
-            year_13 = 0.0
-            year_14 = 0.0
-            year_15 = 0.0
-            year_16 = 0.0
-            year_17 = 0.0
-            year_18 = 0.0
-            year_19 = 0.0
-            year_20 = 0.0
+            start_year = 1990 # years are from 1990 to 2020
+            data_start_col = 6 # data start at column F, which is the 6th
 
-            for i in range(2, max_row_num+1):
-                for j in range(1, max_col_num+1):
-                    cell_obj = sheet.cell(row=i, column=j)
+            for i in range(2, max_row_num + 1):
+                try:
+                    row_data = [sheet.cell(row=i, column=j).value for j in range(1, max_col_num + 1)] # get the data of one row
+                    c_name = row_data[0]
+                    c_code = row_data[1]
+                    is_c = row_data[2]
+                    reg = row_data[3] if row_data[3] else ''
+                    income = row_data[4] if row_data[4] else ''
 
-                    if cell_obj.column_letter == 'A':
-                        c_name = cell_obj.value
-                    if cell_obj.column_letter == 'B':
-                        c_code = cell_obj.value
-                    if cell_obj.column_letter == 'C':
-                        is_c = cell_obj.value
-                    if cell_obj.column_letter == 'D':
-                        if cell_obj.value is not None:
-                            reg = cell_obj.value
-                    if cell_obj.column_letter == 'E':
-                        if cell_obj.value is not None:
-                            income = cell_obj.value
-                    if cell_obj.column_letter == 'F':
-                        if cell_obj.value is not None:
-                            year_90 = cell_obj.value
-                    if cell_obj.column_letter == 'G':
-                        if cell_obj.value is not None:
-                            year_91 = cell_obj.value
-                    if cell_obj.column_letter == 'H':
-                        if cell_obj.value is not None:
-                            year_92 = cell_obj.value
-                    if cell_obj.column_letter == 'I':
-                        if cell_obj.value is not None:
-                            year_93 = cell_obj.value
-                    if cell_obj.column_letter == 'J':
-                        if cell_obj.value is not None:
-                            year_94 = cell_obj.value
-                    if cell_obj.column_letter == 'K':
-                        if cell_obj.value is not None:
-                            year_95 = cell_obj.value
-                    if cell_obj.column_letter == 'L':
-                        if cell_obj.value is not None:
-                            year_96 = cell_obj.value
-                    if cell_obj.column_letter == 'M':
-                        if cell_obj.value is not None:
-                            year_97 = cell_obj.value
-                    if cell_obj.column_letter == 'N':
-                        if cell_obj.value is not None:
-                            year_98 = cell_obj.value
-                    if cell_obj.column_letter == 'O':
-                        if cell_obj.value is not None:
-                            year_99 = cell_obj.value
-                    if cell_obj.column_letter == 'P':
-                        if cell_obj.value is not None:
-                            year_00 = cell_obj.value
-                    if cell_obj.column_letter == 'Q':
-                        if cell_obj.value is not None:
-                            year_01 = cell_obj.value
-                    if cell_obj.column_letter == 'R':
-                        if cell_obj.value is not None:
-                            year_02 = cell_obj.value
-                    if cell_obj.column_letter == 'S':
-                        if cell_obj.value is not None:
-                            year_03 = cell_obj.value
-                    if cell_obj.column_letter == 'T':
-                        if cell_obj.value is not None:
-                            year_04 = cell_obj.value
-                    if cell_obj.column_letter == 'U':
-                        if cell_obj.value is not None:
-                            year_05 = cell_obj.value
-                    if cell_obj.column_letter == 'V':
-                        if cell_obj.value is not None:
-                            year_06 = cell_obj.value
-                    if cell_obj.column_letter == 'W':
-                        if cell_obj.value is not None:
-                            year_07 = cell_obj.value
-                    if cell_obj.column_letter == 'X':
-                        if cell_obj.value is not None:
-                            year_08 = cell_obj.value
-                    if cell_obj.column_letter == 'Y':
-                        if cell_obj.value is not None:
-                            year_09 = cell_obj.value
-                    if cell_obj.column_letter == 'Z':
-                        if cell_obj.value is not None:
-                            year_10 = cell_obj.value
-                    if cell_obj.column_letter == 'AA':
-                        if cell_obj.value is not None:
-                            year_11 = cell_obj.value
-                    if cell_obj.column_letter == 'AB':
-                        if cell_obj.value is not None:
-                            year_12 = cell_obj.value
-                    if cell_obj.column_letter == 'AC':
-                        if cell_obj.value is not None:
-                            year_13 = cell_obj.value
-                    if cell_obj.column_letter == 'AD':
-                        if cell_obj.value is not None:
-                            year_14 = cell_obj.value
-                    if cell_obj.column_letter == 'AE':
-                        if cell_obj.value is not None:
-                            year_15 = cell_obj.value
-                    if cell_obj.column_letter == 'AF':
-                        if cell_obj.value is not None:
-                            year_16 = cell_obj.value
-                    if cell_obj.column_letter == 'AG':
-                        if cell_obj.value is not None:
-                            year_17 = cell_obj.value
-                    if cell_obj.column_letter == 'AH':
-                        if cell_obj.value is not None:
-                            year_18 = cell_obj.value
-                    if cell_obj.column_letter == 'AI':
-                        if cell_obj.value is not None:
-                            year_19 = cell_obj.value
-                    if cell_obj.column_letter == 'AJ':
-                        if cell_obj.value is not None:
-                            year_20 = cell_obj.value
-                    
-                    print(cell_obj.value, end='|')
-                #finish getting values in one row
-                country = Country.objects.create(
-                    country_name = c_name,
-                    country_code = c_code,
-                    is_country = is_c,
-                    region = reg,
-                    income_group = income,
-                )
-                
-                data_1 = Data.objects.create(country = country, year = 1990, emission = year_90)
-                data_2 = Data.objects.create(country = country, year = 1991, emission = year_91)
-                data_3 = Data.objects.create(country = country, year = 1992, emission = year_92)
-                data_4 = Data.objects.create(country = country, year = 1993, emission = year_93)
-                data_5 = Data.objects.create(country = country, year = 1994, emission = year_94)
-                data_6 = Data.objects.create(country = country, year = 1995, emission = year_95)
-                data_7 = Data.objects.create(country = country, year = 1996, emission = year_96)
-                data_8 = Data.objects.create(country = country, year = 1997, emission = year_97)
-                data_9 = Data.objects.create(country = country, year = 1998, emission = year_98)
-                data_10 = Data.objects.create(country = country, year = 1999, emission = year_99)
-                data_11 = Data.objects.create(country = country, year = 2000, emission = year_00)
-                data_12 = Data.objects.create(country = country, year = 2001, emission = year_01)
-                data_13 = Data.objects.create(country = country, year = 2002, emission = year_02)
-                data_14 = Data.objects.create(country = country, year = 2003, emission = year_03)
-                data_15 = Data.objects.create(country = country, year = 2004, emission = year_04)
-                data_16 = Data.objects.create(country = country, year = 2005, emission = year_05)
-                data_17 = Data.objects.create(country = country, year = 2006, emission = year_06)
-                data_18 = Data.objects.create(country = country, year = 2007, emission = year_07)
-                data_19 = Data.objects.create(country = country, year = 2008, emission = year_08)
-                data_20 = Data.objects.create(country = country, year = 2009, emission = year_09)
-                data_21 = Data.objects.create(country = country, year = 2010, emission = year_10)
-                data_22 = Data.objects.create(country = country, year = 2011, emission = year_11)
-                data_23 = Data.objects.create(country = country, year = 2012, emission = year_12)
-                data_24 = Data.objects.create(country = country, year = 2013, emission = year_13)
-                data_25 = Data.objects.create(country = country, year = 2014, emission = year_14)
-                data_26 = Data.objects.create(country = country, year = 2015, emission = year_15)
-                data_27 = Data.objects.create(country = country, year = 2016, emission = year_16)
-                data_28 = Data.objects.create(country = country, year = 2017, emission = year_17)
-                data_29 = Data.objects.create(country = country, year = 2018, emission = year_18)
-                data_30 = Data.objects.create(country = country, year = 2019, emission = year_19)
-                data_31 = Data.objects.create(country = country, year = 2020, emission = year_20)
-                print(' saved ')
-                print('\n')
+                    country = Country.objects.create(
+                        country_name = c_name,
+                        country_code = c_code,
+                        is_country = is_c,
+                        region = reg,
+                        income_group = income,
+                    )
+
+                    data_objects = []
+                    for j in range(data_start_col-1, max_col_num): # the index starts with 0, so the data_start_col should -1
+                        year = start_year + (j-data_start_col+1)
+                        emission = row_data[j]
+                        if emission is not None:
+                            data_objects.append(Data(country = country, year = year, emission = emission))
+                        
+                    Data.objects.bulk_create(data_objects)
+                    print(f'{c_name} saved')
+                except Exception as e:
+                    print(f'Error processing row {i}: {e}')
+            
+            print('all data saved')
 ```
 With this we can drop the data from the table, and then load it in, as required. Run the file with the command:
 ```bash
@@ -405,4 +282,14 @@ In settings.py, change this line in TEMPLATES:
     'DIRS': [BASE_DIR/'templates'],
 ```
 This makes sure it can find our templates.
-
+For there are many templates in visual_emission, the process of creating each template will not be shown in detail.
+All templates and their usage will be listed here:
+_'404.html' and '500.html' -- for error control_
+_'chart.html' -- for drawing the line chart in detail pages_
+_'country_info.html' and 'group_info.html' -- for showing country or group information in detail pages_
+_'country_list.html' -- it is the sidebar of each pages_
+_'data.html' -- it is the detail page for all countries and groups_
+_'feedback.html' -- for collecting feedback from users -- it is not done yet!_
+_'homepage.html' -- it is the homepage of our app_
+_'main.html' -- it is the parent template for other templates_
+In this step, 'urls.py' and 'views.py' in 'visual_emission' folder are also edited.
