@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Home Page{% endblock %}
+<!-- Here is the home page -->
+<!-- Home page will use the main template as parent -->
+{% block content %}
+    <h1>Here is the homepage!</h1>
+    <p>Click a country in the list to continue</p>
+
+    <img src="{% static 'images/green.jpg' %}" alt="A green life picture" style="width: 1000px;">
+
+    <!-- In the right part there will be some different Environmental Information. -->
+    <div style='margin-top: 30px; padding: 15px; background-color: #e6ffe6; border-left: 5px soild #66cc66; font-size: 1.2em;'>
+        <strong style="font-size: 1.4em;">Today's eco-tip: </strong>
+        <p style="text-align: center;">{{ eco_tip }}</p>
+    </div>
+    
+    <a href="{% url 'co2:feedback' %}">Have problems? Contact Us!</a>
+
+{% endblock %}
