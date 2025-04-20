@@ -9,6 +9,7 @@ urlpatterns = [
     path('group/<int:group_id>/', views.group_detail_view, name='group_detail'),
     path('api/country_emissions/<int:country_id>/', views.country_emissions_api, name='country_emissions_api'),
     path('feedback', views.feedback, name='feedback'),
+    path('map', views.map, name='map'),
 ]
 
 handler404 = 'visual_emission.views.custom_404_view'

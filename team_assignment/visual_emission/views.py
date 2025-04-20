@@ -4,6 +4,7 @@ from .models import Country, Data
 from .forms import SearchForm
 from django.contrib import messages
 import random
+import json
 
 # Create your views here.
 # error control for 404 and 500:
@@ -109,3 +110,16 @@ def feedback(request):
         'groups': groups,
     }
     return render(request, 'feedback.html', context=context)
+
+def map(request):
+    countries = Country.objects.filter(is_country=True)
+    groups = Country.objects.filter(is_country=False)
+    country_code_to_id = {country.country_code: country.id for country in countries}
+    country_name_to_code = {country.country_name: country.country_code for country in countries}
+    context = {
+        'countries': countries,
+        'groups': groups,
+        'country_code_to_id': json.dumps(country_code_to_id),
+        'country_name_to_code': json.dumps(country_name_to_code),
+    }
+    return render(request, 'map.html', context=context)

@@ -284,12 +284,12 @@ In settings.py, change this line in TEMPLATES:
 This makes sure it can find our templates.
 For there are many templates in visual_emission, the process of creating each template will not be shown in detail.
 All templates and their usage will be listed here:
-'404.html' and '500.html' -- for error control
-'chart.html' -- for drawing the line chart in detail pages
-'country_info.html' and 'group_info.html' -- for showing country or group information in detail pages
-'country_list.html' -- it is the sidebar of each pages
-'data.html' -- it is the detail page for all countries and groups
+'404.html' and '500.html' -- for error control.
+'chart.html' -- for drawing the line chart in detail pages.
+'country_info.html' and 'group_info.html' -- for showing country or group information in detail pages.
+'country_list.html' -- it is the sidebar of each pages.
+'data.html' -- it is the detail page for all countries and groups.
 'feedback.html' -- for collecting feedback from users -- it is not done yet!
-'homepage.html' -- it is the homepage of our app
-'main.html' -- it is the parent template for other templates
+'homepage.html' -- it is the homepage of our app.
+'main.html' -- it is the parent template for other templates.
 In this step, 'urls.py' and 'views.py' in 'visual_emission' folder are also edited.
