@@ -8,17 +8,11 @@ Although the project brief states that "there should be no JavaScript in your su
 In this project, JavaScript is only used to support the dynamic display of CO₂ emissions through charts and user-controlled filters (e.g., selecting countries or adjusting year ranges). This enhances the interpretability of open data and does not compromise the Python-focused nature of the assignment. All core logic, data processing, and database interactions are handled by Django and Python on the server side.
 
 # How to run through codio (local version)
-first start the virtual environment:
+use this command:
 ```bash
-    source .venv/bin/activate
-```
-then you should go into the project file:
-```bash
-    cd team_assignment
-```
-now you can run the server:
-```bash
-    python3 manage.py runserver 0.0.0.0:8000
+source .venv/bin/activate
+cd team_assignment
+python3 manage.py runserver 0.0.0.0:8000
 ```
 Finally you can visit this url to get to our homepage: https://randomevent-spenddemand-8000.codio-box.uk/co2
 
@@ -284,12 +278,12 @@ In settings.py, change this line in TEMPLATES:
 This makes sure it can find our templates.
 For there are many templates in visual_emission, the process of creating each template will not be shown in detail.
 All templates and their usage will be listed here:
-'404.html' and '500.html' -- for error control
-'chart.html' -- for drawing the line chart in detail pages
-'country_info.html' and 'group_info.html' -- for showing country or group information in detail pages
-'country_list.html' -- it is the sidebar of each pages
-'data.html' -- it is the detail page for all countries and groups
+'404.html' and '500.html' -- for error control.
+'chart.html' -- for drawing the line chart in detail pages.
+'country_info.html' and 'group_info.html' -- for showing country or group information in detail pages.
+'country_list.html' -- it is the sidebar of each pages.
+'data.html' -- it is the detail page for all countries and groups.
 'feedback.html' -- for collecting feedback from users -- it is not done yet!
-'homepage.html' -- it is the homepage of our app
-'main.html' -- it is the parent template for other templates
+'homepage.html' -- it is the homepage of our app.
+'main.html' -- it is the parent template for other templates.
 In this step, 'urls.py' and 'views.py' in 'visual_emission' folder are also edited.

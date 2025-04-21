@@ -3,6 +3,8 @@
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
+    <!-- <img src="{% static 'images/green.jpg' %}" alt="A green life picture" style="width: 1000px;"> -->
+
     <h1 style="margin-bottom: 10px;">🌍 Explore Carbon Emissions Around the World</h1>
     <p style="font-size: 1.05em; color: #555; margin-bottom: 8px;">
         Over 200 countries & 50+ years of data at your fingertips 📊
@@ -12,7 +14,10 @@
         {{ quote }}
     </blockquote>
 
-    <a href="{% url 'co2:feedback' %}" style="display: inline-block; margin-bottom: 20px;">💬 Have problems? Contact Us!</a>
+    <ul style="list-style-type: none;">
+        <li><a href="{% url 'co2:map' %}">Use the world map to choose a country</a></li>
+        <li><a href="{% url 'co2:feedback' %}" style="display: inline-block; margin-bottom: 20px;">💬 Have problems? Contact Us!</a></li>
+    </ul>    
 
     <div class="eco-tip-box">
         <strong>🌿 Today's eco-tip:</strong>

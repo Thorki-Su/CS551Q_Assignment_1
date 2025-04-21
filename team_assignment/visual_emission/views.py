@@ -8,6 +8,7 @@ import random
 import matplotlib.pyplot as plt
 from io import BytesIO
 from django.http import HttpResponse
+import json
 
 
 def custom_404_view(request, exception):
@@ -135,6 +136,19 @@ def feedback(request):
     }
     return render(request, 'feedback.html', context=context)
 
+def map(request):
+    countries = Country.objects.filter(is_country=True)
+    groups = Country.objects.filter(is_country=False)
+    country_code_to_id = {country.country_code: country.id for country in countries}
+    country_name_to_code = {country.country_name: country.country_code for country in countries}
+    context = {
+        'countries': countries,
+        'groups': groups,
+        'country_code_to_id': json.dumps(country_code_to_id),
+        'country_name_to_code': json.dumps(country_name_to_code),
+    }
+    return render(request, 'map.html', context=context)
+
 def export_country_chart_png(request, country_id):
     country = get_object_or_404(Country, id=country_id)
     datas = Data.objects.filter(country=country).order_by('year')
@@ -156,4 +170,3 @@ def export_country_chart_png(request, country_id):
     buffer.seek(0)
 
     return HttpResponse(buffer, content_type='image/png')
-

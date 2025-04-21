@@ -1,0 +1,87 @@
+{% extends 'main.html' %}
+
+{% block title %}
+    Map Page
+{% endblock %}
+<!-- This is a page to show a world map. -->
+<!-- Users can click one country to visit the detail page through this map. -->
+
+{% block extra_head %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        #map {
+        height: 90vh;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h3>Click on the country to see the trend in per capita carbon emissions</h3>
+    <p style="color: gray;">Please note that we are missing data for some countries. We apologize if this is a problem for you.</p>
+    <div id="map"></div>
+
+    <script>
+        const countryCodeToId = {{ country_code_to_id|safe }};
+        const countryNameToCode = {{ country_name_to_code|safe }};
+
+        function onEachFeature(feature, layer) {
+            const props = feature.properties;
+            const countryName = props.name;
+            let isoCode = props['ISO3166-1-Alpha-3'];
+
+            // we found in the file countries.geojson, there are some countries with wrong iso code as '-99'.
+            // so we use countryNameToCode as a second protection, if the code is wrong, then find a correct one in this dictionary
+            if (isoCode === '-99' || !countryCodeToId[isoCode]) {
+                isoCode = countryNameToCode[countryName];
+            } 
+
+            const countryId   = countryCodeToId[isoCode];
+            const tooltipText = `${countryName} (${isoCode})`;
+
+            layer.bindTooltip(tooltipText, { permanent: false, direction: 'top' });
+            if (countryId) {
+                layer.on('click', () => {
+                    window.location.href = `/co2/country/${countryId}/`;
+                });
+            }
+        }
+
+        // Initialising the map
+        var map = L.map('map', {
+            maxBounds:[[-60,-180],[90,180]],
+            maxBoundsViscosity: 1.0,
+            minZoom: 2,
+            maxZoom: 8
+        }).setView([20, 0], 2);
+
+        // Adding OSM Layers, we use a open source tool 'OpenStreetMap'
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        fetch('/static/map/countries.geojson')// load the GeoJSON
+        .then(res => res.json())
+        .then(data => {  
+            L.geoJSON(data, {
+                style: function(feature) {
+                    let iso = feature.properties['ISO3166-1-Alpha-3'];
+                    const countryName = feature.properties.name;
+                    if (iso === '-99' || !countryCodeToId[iso]) {
+                        iso = countryNameToCode[countryName];
+                    }
+                    const countryId = countryCodeToId[iso];
+                    const hasData = countryId != null;
+                    
+                    return {
+                        color: "#3388ff",
+                        weight: 1,
+                        fillOpacity: hasData ? 0.3 : 0.1, //if the hasData is none, it means we don't have the country's data
+                        dashArray: hasData ? null : "3" // so the country will be shown in different way
+                    }; 
+                },
+                onEachFeature: onEachFeature
+            }).addTo(map);
+        });
+    </script>
+{% endblock %}

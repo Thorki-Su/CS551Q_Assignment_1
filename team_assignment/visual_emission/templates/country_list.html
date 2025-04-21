@@ -1,5 +1,9 @@
 <!-- There will show all countries in a list -->
-<a href="{% url 'co2:homepage' %}">Go back to Homepage</a>
+<ul style="list-style-type: none;">
+    <li><a href="{% url 'co2:homepage' %}">Go back to Homepage</a></li>
+    <li><a href="{% url 'co2:map' %}">World Map</a></li>
+    <li><a href="{% url 'co2:feedback' %}">Contact Us</a></li>
+</ul>
 
 <h3>Country List</h3>
 <ul>
