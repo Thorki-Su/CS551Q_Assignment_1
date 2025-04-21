@@ -19,4 +19,11 @@
     {% endif %}
     
     {% include 'chart.html' %}
+
+    <!-- Download PNG button for countries only -->
+    {% if country.is_country == True %}
+        <a href="{% url 'co2:export_chart_png' country.id %}" class="download-button" download>
+            📤 Download Chart as PNG
+        </a>
+    {% endif %}
 {% endblock %}

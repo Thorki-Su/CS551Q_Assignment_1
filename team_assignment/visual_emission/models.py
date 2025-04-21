@@ -15,3 +15,11 @@ class Data(models.Model):
 
     class Meta:
         unique_together = ('country', 'year')
+
+class Feedback(models.Model):
+    email = models.EmailField()
+    message = models.TextField()
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Feedback from {self.email} on {self.submitted_at.strftime('%Y-%m-%d %H:%M')}"
