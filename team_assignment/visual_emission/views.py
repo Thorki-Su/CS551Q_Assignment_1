@@ -36,13 +36,13 @@ def homepage(request):
     random_tip = random.choice(eco_tips)
 
     quotes = [
-        '"The greatest threat to our planet is the belief that someone else will save it." – Robert Swan',
-        '"What we do today, right now, will have an accumulated effect on all our tomorrows." – Alexandra Stoddard',
-        '"We won’t have a society if we destroy the environment." – Margaret Mead',
-        '"The Earth is what we all have in common." – Wendell Berry',
-        '"There is no planet B." – Emmanuel Macron',
-        '"Act as if what you do makes a difference. It does." – William James',
-        '"Sustainability is no longer about doing less harm. It’s about doing more good." – Jochen Zeitz',
+        '"The greatest threat to our planet is the belief that someone else will save it." -- Robert Swan',
+        '"What we do today, right now, will have an accumulated effect on all our tomorrows." -- Alexandra Stoddard',
+        '"We will not have a society if we destroy the environment." -- Margaret Mead',
+        '"The Earth is what we all have in common." -- Wendell Berry',
+        '"There is no planet B." -- Emmanuel Macron',
+        '"Act as if what you do makes a difference. It does." -- William James',
+        '"Sustainability is no longer about doing less harm. It is about doing more good." -- Jochen Zeitz',
     ]
     random_quote = random.choice(quotes)
 
