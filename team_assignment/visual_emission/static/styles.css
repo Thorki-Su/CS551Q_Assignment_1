@@ -45,10 +45,73 @@ body {
     background-color: #e8f0fe;
 }
 
+.sidebar a {
+    display: block;
+    margin-bottom: 10px;
+    color: #2a7ae2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+.sidebar-links ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-links ul li {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.scroll-box {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding-right: 5px;
+    width: 100%;
+}
+
+.scroll-box h3 {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 12px;
+    padding-bottom: 4px;
+}
+
+.scroll-box ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+}
+
+.scroll-box ul li {
+    margin-bottom: 8px;
+}
+
+.scroll-box a {
+    text-decoration: none;
+    color: #2a7ae2;
+}
+
+.scroll-box a:hover {
+    text-decoration: underline;
+}
+
 .content {
     flex-grow: 1;
     padding: 20px 30px;
     overflow-y: auto;
+}
+
+canvas {
+    width: 1050px !important;
+    height: 525px !important;
 }
 
 .eco-tip-box {
@@ -226,43 +289,4 @@ body {
     text-decoration: underline;
 }
 
-.sidebar a {
-    display: block;
-    margin-bottom: 10px;
-    color: #2a7ae2;
-    text-decoration: none;
-    font-weight: 500;
-}
 
-.sidebar a:hover {
-    text-decoration: underline;
-}
-
-.sidebar-links ul li {
-    text-align: center;
-    margin-bottom: 12px;
-}
-
-.scroll-box {
-    max-height: 250px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-    padding-right: 5px;
-}
-
-.scroll-box h3 {
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 12px;
-    padding-bottom: 4px;
-}
-
-.scroll-box ul {
-    list-style-type: none;
-    padding-left: 0;
-    text-align: center;
-}
-
-.scroll-box ul li {
-    margin-bottom: 8px;
-}
