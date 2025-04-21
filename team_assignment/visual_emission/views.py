@@ -1,14 +1,16 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
-from django.http import JsonResponse
-from .models import Country, Data
-from .models import Feedback
-from .forms import SearchForm
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse, HttpResponse
+from .models import Country, Data, Feedback
+from .forms import SearchForm, UserRegisterForm
 from django.contrib import messages
 import random
 import matplotlib.pyplot as plt
 from io import BytesIO
-from django.http import HttpResponse
 import json
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User
 
 
 def custom_404_view(request, exception):
@@ -17,6 +19,7 @@ def custom_404_view(request, exception):
 def custom_500_view(request):
     return render(request, '500.html', status=500)
 
+@login_required(login_url='co2:login')
 def homepage(request):
     countries = Country.objects.filter(is_country=True)
     groups = Country.objects.filter(is_country=False)
@@ -71,6 +74,7 @@ def homepage(request):
     }
     return render(request, 'homepage.html', context=context)
 
+@login_required(login_url='co2:login')
 def country_detail_view(request, country_id):
     country = get_object_or_404(Country, id=country_id)
     datas = Data.objects.filter(country=country).order_by('year')
@@ -90,6 +94,7 @@ def country_detail_view(request, country_id):
     }
     return render(request, 'data.html', context=context)
 
+@login_required(login_url='co2:login')
 def group_detail_view(request, group_id):
     group = get_object_or_404(Country, id=group_id)
     datas = Data.objects.filter(country=group).order_by('year')
@@ -119,6 +124,7 @@ def country_emissions_api(request, country_id):
     except Country.DoesNotExist:
         return JsonResponse({'error': 'Country Not Found'}, status=404)
 
+@login_required(login_url='co2:login')
 def feedback(request):
     countries = Country.objects.filter(is_country=True)
     groups = Country.objects.filter(is_country=False)
@@ -136,6 +142,7 @@ def feedback(request):
     }
     return render(request, 'feedback.html', context=context)
 
+@login_required(login_url='co2:login')
 def map(request):
     countries = Country.objects.filter(is_country=True)
     groups = Country.objects.filter(is_country=False)
@@ -149,10 +156,10 @@ def map(request):
     }
     return render(request, 'map.html', context=context)
 
+@login_required(login_url='co2:login')
 def export_country_chart_png(request, country_id):
     country = get_object_or_404(Country, id=country_id)
     datas = Data.objects.filter(country=country).order_by('year')
-
     years = [data.year for data in datas]
     emissions = [data.emission for data in datas]
 
@@ -170,3 +177,39 @@ def export_country_chart_png(request, country_id):
     buffer.seek(0)
 
     return HttpResponse(buffer, content_type='image/png')
+
+def register_view(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('co2:homepage')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'register.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('co2:homepage')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('co2:login')
+
+@login_required(login_url='co2:login')
+@user_passes_test(lambda u: u.is_superuser)
+def admin_dashboard(request):
+    users = User.objects.all().order_by('date_joined')
+    feedbacks = Feedback.objects.all().order_by('-submitted_at')
+    return render(request, 'admin_dashboard.html', {
+        'users': users,
+        'feedbacks': feedbacks
+    })

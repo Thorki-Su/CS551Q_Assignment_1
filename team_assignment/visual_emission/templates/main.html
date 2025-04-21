@@ -11,23 +11,69 @@
         }
         .container {
             display: flex;
-            height: 100vh;
+            min-height: 100vh;
         }
         .sidebar {
             width: 250px;
             background-color: #f5f5f5;
             padding: 20px;
-            overflow-y: auto;
             border-right: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        .sidebar-links ul {
+            list-style-type: none;
+            padding-left: 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-links ul li {
+            margin: 10px 0;
+        }
+
+        .scroll-box {
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 5px;
+            width: 100%;
+        }
+
+        .scroll-box h3 {
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 12px;
+            padding-bottom: 4px;
+        }
+
+        .scroll-box ul {
+            list-style-type: none;
+            padding-left: 0;
+            text-align: center;
+        }
+
+        .scroll-box ul li {
+            margin-bottom: 8px;
+        }
+
+        .scroll-box a {
+            text-decoration: none;
+            color: #2a7ae2;
+        }
+
+        .scroll-box a:hover {
+            text-decoration: underline;
+        }
+
         .content {
             flex-grow: 1;
-            padding: 20px;
+            padding: 20px 30px;
             overflow-y: auto;
         }
-        .list_item {
-            margin-bottom: 10px;
-        }
+
         canvas {
             width: 1050px !important;
             height: 525px !important;
@@ -38,7 +84,50 @@
 <body>
     <div class="container">
         <div class="sidebar">
-            {% include 'country_list.html' %}
+            <div class="sidebar-links">
+                <ul>
+                    <li><a href="{% url 'co2:homepage' %}">Go back to Homepage</a></li>
+                    <li><a href="{% url 'co2:map' %}">World Map</a></li>
+                    <li><a href="{% url 'co2:feedback' %}">Contact Us</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'co2:logout' %}">Logout</a></li>
+                        {% if user.is_superuser %}
+                            <li><a href="{% url 'co2:admin_dashboard' %}">Admin Dashboard</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li><a href="{% url 'co2:login' %}">Login</a></li>
+                        <li><a href="{% url 'co2:register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <hr style="margin: 15px 0; width: 100%;">
+
+            <div class="scroll-box">
+                <h3>Country List</h3>
+                <ul>
+                    {% for country in countries %}
+                        <li class="list_item">
+                            <a href="{% url 'co2:country_detail' country.id %}">
+                                {{ country.country_name }} [{{ country.country_code }}]
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="scroll-box">
+                <h3>Area & Group List</h3>
+                <ul>
+                    {% for group in groups %}
+                        <li class="list_item">
+                            <a href="{% url 'co2:group_detail' group.id %}">
+                                {{ group.country_name }} [{{ group.country_code }}]
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
 
         <div class="content">
@@ -47,4 +136,5 @@
             {% endblock %}
         </div>
     </div>
-</body></html>
+</body>
+</html>

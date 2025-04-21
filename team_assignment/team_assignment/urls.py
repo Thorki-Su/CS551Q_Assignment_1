@@ -20,6 +20,6 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('co2/', include('visual_emission.urls', namespace='co2')),
+    path('co2/', include(('visual_emission.urls', 'visual_emission'), namespace='co2')),
     path('', RedirectView.as_view(url='/co2/', permanent=False)),
 ]
