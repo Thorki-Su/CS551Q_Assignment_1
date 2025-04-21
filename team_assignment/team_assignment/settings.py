@@ -29,13 +29,15 @@ ALLOWED_HOSTS = [
     'randomevent-spenddemand-8000.codio-box.uk',
     'pixelcanal-framenato-8000.codio-box.uk',
     'trumpetsymbol-dividetina-8000.codio-box.uk',
+    'presssharp-gabrielfrozen-8000.codio-box.uk',
     'localhost'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://randomevent-spenddemand-8000.codio-box.uk",
     "https://pixelcanal-framenato-8000.codio-box.uk",
-    "https://trumpetsymbol-dividetina-8000.codio-box.uk"
+    "https://trumpetsymbol-dividetina-8000.codio-box.uk",
+    'https://presssharp-gabrielfrozen-8000.codio-box.uk'
 ]
 
 # Application definition
@@ -133,3 +135,7 @@ STATICFILES_DIRS = [ BASE_DIR / "visual_emission/static", ]
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/co2/login/'
+
+LOGIN_REDIRECT_URL = '/co2/'

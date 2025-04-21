@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Register</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        
+        <p>
+            {{ form.username.label_tag }}<br>
+            {{ form.username }}
+        </p>
+
+        <p>
+            {{ form.email.label_tag }}<br>
+            {{ form.email }}
+        </p>
+
+        <p>
+            {{ form.password1.label_tag }}<br>
+            {{ form.password1 }}
+        </p>
+
+        <p>
+            {{ form.password2.label_tag }}<br>
+            {{ form.password2 }}
+        </p>
+
+        <button type="submit">Register</button>
+    </form>
+    <p>Tips: The password must be at least 8 digits long and cannot be all numbers.<p>
+    <p>Already have an account? <a href="{% url 'co2:login' %}">Login here</a></p>
+</div>
+{% endblock %}
