@@ -28,12 +28,14 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'randomevent-spenddemand-8000.codio-box.uk',
     'pixelcanal-framenato-8000.codio-box.uk',
+    'trumpetsymbol-dividetina-8000.codio-box.uk',
     'localhost'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://randomevent-spenddemand-8000.codio-box.uk",
     "https://pixelcanal-framenato-8000.codio-box.uk",
+    "https://trumpetsymbol-dividetina-8000.codio-box.uk"
 ]
 
 # Application definition

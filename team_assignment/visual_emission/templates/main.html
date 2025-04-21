@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% load static %}
     <title>{% block title %}default title{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
     <style>
         body {
             margin: 0;

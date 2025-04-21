@@ -1,38 +1,44 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block title %}Home Page{% endblock %}
-<!-- Here is the home page -->
-<!-- Home page will use the main template as parent -->
+
 {% block content %}
-    <h1>Here is the homepage!</h1>
-    <p>Click a country in the list to continue</p>
-    <ul style="list-style-type: none;">
-        <li><a href="{% url 'co2:map' %}">Use the world map to choose a country</a></li>
-        <li><a href="{% url 'co2:feedback' %}">Have problems? Contact Us!</a></li>
-    </ul>
     <!-- <img src="{% static 'images/green.jpg' %}" alt="A green life picture" style="width: 1000px;"> -->
 
-    <!-- In the right part there will be some different Environmental Information. -->
-    <div style='margin-top: 30px; padding: 15px; background-color: #e6ffe6; border-left: 5px soild #66cc66; font-size: 1.2em;'>
-        <strong style="font-size: 1.4em;">Today's eco-tip: </strong>
-        <p style="text-align: center;">{{ eco_tip }}</p>
+    <h1 style="margin-bottom: 10px;">🌍 Explore Carbon Emissions Around the World</h1>
+    <p style="font-size: 1.05em; color: #555; margin-bottom: 8px;">
+        Over 200 countries & 50+ years of data at your fingertips 📊
+    </p>
+
+    <blockquote style="margin: 10px 0 20px 0; font-style: italic; color: #2e8b57;">
+        {{ quote }}
+    </blockquote>
+
+    <ul style="list-style-type: none;">
+        <li><a href="{% url 'co2:map' %}">Use the world map to choose a country</a></li>
+        <li><a href="{% url 'co2:feedback' %}" style="display: inline-block; margin-bottom: 20px;">💬 Have problems? Contact Us!</a></li>
+    </ul>    
+
+    <div class="eco-tip-box">
+        <strong>🌿 Today's eco-tip:</strong>
+        <p>{{ eco_tip }}</p>
     </div>
-    
-    <div style="margin-top: 30px;">
-        <h3>Search a country or group</h3>
-        <form method="post" style="margin-bottom: 15px;">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" style="padding: 5px 10px;">Search</button>
-        </form>
+
+    <div class="search-container">
+        <h3>🔍 Search a Country or Group</h3>
 
         {% if messages %}
-            <ul>
+            <ul class="message-list">
                 {% for message in messages %}
-                    <li style="color: red;">{{ message }}</li>
+                    <li class="{{ message.tags }}-message">{{ message }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
+
+        <form method="post" class="search-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="search-button">Search</button>
+        </form>
     </div>
-    
 {% endblock %}
