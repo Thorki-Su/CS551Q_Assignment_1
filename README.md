@@ -8,17 +8,11 @@ Although the project brief states that "there should be no JavaScript in your su
 In this project, JavaScript is only used to support the dynamic display of CO₂ emissions through charts and user-controlled filters (e.g., selecting countries or adjusting year ranges). This enhances the interpretability of open data and does not compromise the Python-focused nature of the assignment. All core logic, data processing, and database interactions are handled by Django and Python on the server side.
 
 # How to run through codio (local version)
-first start the virtual environment:
+use this command:
 ```bash
-    source .venv/bin/activate
-```
-then you should go into the project file:
-```bash
-    cd team_assignment
-```
-now you can run the server:
-```bash
-    python3 manage.py runserver 0.0.0.0:8000
+source .venv/bin/activate
+cd team_assignment
+python3 manage.py runserver 0.0.0.0:8000
 ```
 Finally you can visit this url to get to our homepage: https://randomevent-spenddemand-8000.codio-box.uk/co2
 
