@@ -1,7 +1,7 @@
 Invoked as: ./configure --prefix=/home/codio/sqlite
 Tclsh: /usr/bin/tclsh
 Failed: cc conftest__.c -o conftest__
-/tmp/ccwm9SY1.o: In function `main':
+/tmp/cchJnVwV.o: In function `main':
 conftest__.c:(.text+0x5): undefined reference to `localtime_s'
 collect2: error: ld returned 1 exit status
 child process exited abnormally
@@ -14,7 +14,7 @@ return 0;
 }
 ============
 Failed: cc conftest__.c -o conftest__
-/tmp/ccwbiDYz.o: In function `main':
+/tmp/cc4wlGdx.o: In function `main':
 conftest__.c:(.text+0x5): undefined reference to `deflate'
 collect2: error: ld returned 1 exit status
 child process exited abnormally
@@ -27,7 +27,6 @@ return 0;
 }
 ============
 Failed: cc -c -rpath /home/codio/sqlite/lib conftest__.c -o conftest__.o
-cc: error: /home/codio/sqlite/lib: No such file or directory
 cc: error: unrecognized command line option ‘-rpath’
 child process exited abnormally
 ============
@@ -38,8 +37,8 @@ return 0;
 }
 ============
 Failed: cc -O2 -g conftest__.c -o conftest__
-/tmp/ccKhq2qW.o: In function `main':
-/home/codio/workspace/CS551Q_Assignment_1/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `pthread_create'
+/tmp/cciUVulF.o: In function `main':
+/home/codio/workspace/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
 child process exited abnormally
 ============
@@ -51,8 +50,8 @@ return 0;
 }
 ============
 Failed: cc -O2 -g conftest__.c -o conftest__
-/tmp/ccAGzUp8.o: In function `main':
-/home/codio/workspace/CS551Q_Assignment_1/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `pthread_mutexattr_init'
+/tmp/cceyX1WJ.o: In function `main':
+/home/codio/workspace/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `pthread_mutexattr_init'
 collect2: error: ld returned 1 exit status
 child process exited abnormally
 ============
@@ -64,8 +63,8 @@ return 0;
 }
 ============
 Failed: cc -O2 -g conftest__.c -o conftest__
-/tmp/ccliu78f.o: In function `main':
-/home/codio/workspace/CS551Q_Assignment_1/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `tgetent'
+/tmp/ccUsTJoO.o: In function `main':
+/home/codio/workspace/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `tgetent'
 collect2: error: ld returned 1 exit status
 child process exited abnormally
 ============
@@ -77,8 +76,8 @@ return 0;
 }
 ============
 Failed: cc -O2 -g conftest__.c -o conftest__ -lreadline
-/tmp/ccF0tmhn.o: In function `main':
-/home/codio/workspace/CS551Q_Assignment_1/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `tgetent'
+/tmp/ccGxltqR.o: In function `main':
+/home/codio/workspace/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `tgetent'
 collect2: error: ld returned 1 exit status
 child process exited abnormally
 ============
@@ -90,8 +89,8 @@ return 0;
 }
 ============
 Failed: cc -O2 -g conftest__.c -o conftest__ -lncurses
-/tmp/ccbYB5LE.o: In function `main':
-/home/codio/workspace/CS551Q_Assignment_1/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `readline'
+/tmp/ccQipSGV.o: In function `main':
+/home/codio/workspace/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `readline'
 collect2: error: ld returned 1 exit status
 child process exited abnormally
 ============
@@ -103,8 +102,8 @@ return 0;
 }
 ============
 Failed: cc -O2 -g conftest__.c -o conftest__
-/tmp/cc7lEQ6V.o: In function `main':
-/home/codio/workspace/CS551Q_Assignment_1/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `dlopen'
+/tmp/ccS91585.o: In function `main':
+/home/codio/workspace/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `dlopen'
 collect2: error: ld returned 1 exit status
 child process exited abnormally
 ============
@@ -119,8 +118,8 @@ Failed: cc -O2 -g conftest__.c -o conftest__
 conftest__.c:1:13: warning: conflicting types for built-in function ‘ceil’ [-Wbuiltin-declaration-mismatch]
  extern void ceil(void);
              ^~~~
-/tmp/ccjfTFv9.o: In function `main':
-/home/codio/workspace/CS551Q_Assignment_1/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `ceil'
+/tmp/ccRYysY3.o: In function `main':
+/home/codio/workspace/sqlite-autoconf-3490100/conftest__.c:3: undefined reference to `ceil'
 collect2: error: ld returned 1 exit status
 child process exited abnormally
 ============

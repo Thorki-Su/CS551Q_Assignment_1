@@ -14,7 +14,7 @@
 #   canonical source tree.
 all:
 
-TOP = /home/codio/workspace/CS551Q_Assignment_1/sqlite-autoconf-3490100
+TOP = /home/codio/workspace/sqlite-autoconf-3490100
 
 PACKAGE_VERSION = 3.49.1
 
@@ -102,7 +102,7 @@ AS_AUTO_DEF = $(TOP)/auto.def
 # Shell commands to re-run $(TOP)/configure with the same args it was
 # invoked with to produce this makefile.
 #
-AS_AUTORECONFIG = cd /home/codio/workspace/CS551Q_Assignment_1/sqlite-autoconf-3490100 && /home/codio/workspace/CS551Q_Assignment_1/sqlite-autoconf-3490100/configure --prefix=/home/codio/sqlite
+AS_AUTORECONFIG = cd /home/codio/workspace/sqlite-autoconf-3490100 && /home/codio/workspace/sqlite-autoconf-3490100/configure --prefix=/home/codio/sqlite
 Makefile: $(TOP)/Makefile.in $(AS_AUTO_DEF)
 	$(AS_AUTORECONFIG)
 	@touch $@
