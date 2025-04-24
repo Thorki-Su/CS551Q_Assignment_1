@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+{% block title %}Feedback Page{% endblock %}
+
+{% block content %}
+<div class="feedback-container">
+    <h2>💡 We'd Love Your Feedback!</h2>
+    <p>Please let us know how we can improve this platform 🌍</p>
+
+    {% if messages %}
+        <ul class="message-list">
+            {% for message in messages %}
+                <li class="{{ message.tags }}-message">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post" class="feedback-form">
+        {% csrf_token %}
+        
+        <label for="email">Your Email:</label><br>
+        <input type="email" name="email" id="email" placeholder="you@example.com" required><br>
+
+        <label for="feedback">Your Feedback:</label><br>
+        <textarea name="feedback" id="feedback" rows="6" placeholder="Write your feedback here..." required></textarea><br>
+
+        <button type="submit" class="submit-button">Send Feedback</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>{% block title %}default title{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- the past style are moved into style.css -->
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-links">
+                <ul>
+                    <li><a href="{% url 'co2:homepage' %}">Go back to Homepage</a></li>
+                    <li><a href="{% url 'co2:map' %}">World Map</a></li>
+                    <li><a href="{% url 'co2:feedback' %}">Contact Us</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'co2:logout' %}">Logout</a></li>
+                        {% if user.is_superuser %}
+                            <li><a href="{% url 'co2:admin_dashboard' %}">Admin Dashboard</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li><a href="{% url 'co2:login' %}">Login</a></li>
+                        <li><a href="{% url 'co2:register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <hr style="margin: 15px 0; width: 100%;">
+
+            <div class="scroll-box">
+                <h3>Country List</h3>
+                <ul>
+                    {% for country in countries %}
+                        <li class="list_item">
+                            <a href="{% url 'co2:country_detail' country.id %}">
+                                {{ country.country_name }} [{{ country.country_code }}]
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="scroll-box">
+                <h3>Area & Group List</h3>
+                <ul>
+                    {% for group in groups %}
+                        <li class="list_item">
+                            <a href="{% url 'co2:group_detail' group.id %}">
+                                {{ group.country_name }} [{{ group.country_code }}]
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="content">
+            {% block content %}
+                <p>default content</p>
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

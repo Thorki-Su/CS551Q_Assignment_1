@@ -1,0 +1,299 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    overflow-y: auto;
+    border-right: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar h3 {
+    font-size: 1.1em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+}
+
+.sidebar a {
+    display: block;
+    color: #2a7ae2;
+    text-decoration: none;
+    font-size: 0.95em;
+    margin: 3px 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar a:hover {
+    background-color: #e8f0fe;
+}
+
+.sidebar a {
+    display: block;
+    margin-bottom: 10px;
+    color: #2a7ae2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+.sidebar-links ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-links ul li {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.scroll-box {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding-right: 5px;
+    width: 100%;
+}
+
+.scroll-box h3 {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 12px;
+    padding-bottom: 4px;
+}
+
+.scroll-box ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+}
+
+.scroll-box ul li {
+    margin-bottom: 8px;
+}
+
+.scroll-box a {
+    text-decoration: none;
+    color: #2a7ae2;
+}
+
+.scroll-box a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px 30px;
+    overflow-y: auto;
+}
+
+canvas {
+    width: 1050px !important;
+    height: 525px !important;
+}
+
+.eco-tip-box {
+    background-color: #e6ffe6;
+    border-left: 6px solid #32cd32;
+    padding: 15px 20px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    font-size: 1.05em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-container,
+.feedback-container {
+    padding: 38px;
+    margin: 30px auto 40px auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    max-width: 700px;
+    width: 90%;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.feedback-container {
+    background-color: #fdfdfd;
+}
+
+.search-container {
+    background-color: #FFFFE0;
+}
+
+.search-container:hover,
+.feedback-container:hover {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+}
+
+.feedback-container h2,
+.search-container h3 {
+    color: #1f5fc1;
+    margin-bottom: 15px;
+}
+
+.feedback-form label,
+.search-form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.search-form input,
+.feedback-form input[type="email"],
+.feedback-form textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border 0.3s;
+    resize: none;
+}
+
+.search-form input:focus,
+.feedback-form input[type="email"]:focus,
+.feedback-form textarea:focus {
+    border: 1px solid #2a7ae2;
+    outline: none;
+}
+
+.search-button,
+.submit-button {
+    padding: 12px 24px;
+    background-color: #2a7ae2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover,
+.submit-button:hover {
+    background-color: #1f5fc1;
+}
+
+.message-list {
+    margin-top: 15px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.success-message {
+    color: #2e8b57;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.error-message {
+    color: #c0392b;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.download-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 18px;
+    background-color: #2a7ae2;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+    background-color: #1e5fc1;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: #fdfdfd;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #2a7ae2;
+}
+
+.form-container form p {
+    margin-bottom: 15px;
+}
+
+.form-container label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.form-container button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #2a7ae2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: #195ec8;
+}
+
+.form-container p {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-container a {
+    color: #2a7ae2;
+    text-decoration: none;
+}
+
+.form-container a:hover {
+    text-decoration: underline;
+}
+
+

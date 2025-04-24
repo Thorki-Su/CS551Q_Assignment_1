@@ -1,0 +1,13 @@
+<form method="get" action="{% url 'filtered_chart_view' %}">
+    <label for="category">Choose a category:</label>
+    <select name="category" id="category">
+        <option value="default">Default</option>
+        <option value="category1">Category 1</option>
+        <option value="category2">Category 2</option>
+        <!-- Add more options as needed -->
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+<!-- Display the Bar Chart -->
+<img src="data:image/png;base64,{{ bar_chart }}" alt="Bar Chart">

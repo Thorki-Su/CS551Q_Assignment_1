@@ -1,0 +1,169 @@
+<div style="background-color: gray; display:flex; justify-content: center;">
+    <span style="color: white">Control Options</span>
+</div>
+<div style="background-color: #f5f5f5; border: 1px solid gray; padding-top: 10px;">
+    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px; gap: 20px;">
+        <label for='startYear'>Start Year: </label>
+        <select id="startYear"></select>
+            
+        <label for="endYear">End Year: </label>
+        <select id="endYear"></select>
+    </div>
+
+    <div style="text-align: center; margin: 10px 0;">
+        <label for='compareCountry'>Add a country: </label>
+        <select id="compareCountry">
+            <option disabled selected>Please choose a country</option>
+            {% for c in all_countries %}
+                {% if c.id != country.id %}
+                    <option value="{{ c.id }}">{{ c.country_name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <button onclick="addCountryToChart()">Add</button>
+    </div>
+
+    <div id="addedCountries" style="text-align: center; margin-top: 10px;">
+        <strong>Added Countries: </strong>
+        <ul id="countryList" style="list-style: none; padding: 0;"></ul>
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center; align-items: center;">
+    <canvas id="emissionChart" width="200" height="100"></canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script>
+    const years = {{ years|safe }};
+    const emissions = {{ emissions|safe }};
+    const loadedCountries = new Set();
+    const colorPool = ['blue', 'red', 'green', 'orange', 'purple', 'brown', 'teal', 'darkblue'];
+
+    const startSelect = document.getElementById('startYear');
+    const endSelect = document.getElementById('endYear');
+    const countryList = document.getElementById('countryList');
+
+    years.forEach(year => {
+        const opt1 = document.createElement('option');
+        opt1.value = year;
+        opt1.textContent = year;
+        startSelect.appendChild(opt1);
+
+        const opt2 = document.createElement('option');
+        opt2.value = year;
+        opt2.textContent = year;
+        endSelect.appendChild(opt2);
+    });
+    startSelect.value = years[0];
+    endSelect.value = years[years.length - 1];
+
+    const ctx = document.getElementById('emissionChart').getContext('2d');
+    let chart = new Chart(ctx, {
+        type: 'line',
+        data:{
+            labels: years,
+            datasets:[{
+                label: '{{country.country_name}}',
+                data: emissions,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive:true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Year'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'CO2 emissions (metric tons per capita)'
+                    }
+                }
+            }
+        }
+    });
+
+    function updateChart() {
+        const start = parseInt(startSelect.value);
+        const end = parseInt(endSelect.value);
+        if (start >= end) return;
+
+        const startIndex = years.indexOf(start);
+        const endIndex = years.indexOf(end) + 1;
+        const filteredYears = years.slice(startIndex, endIndex);
+        const filteredEmission = emissions.slice(startIndex,endIndex);
+
+        chart.data.labels = filteredYears;
+        chart.data.datasets[0].data = filteredEmission;
+        
+        for (let i = 1; i < chart.data.datasets.length; i++) {
+            const country = chart.data.datasets[i];
+            country.data = country.fullData.slice(startIndex, endIndex);
+        }
+
+        chart.update();
+    }
+        
+    startSelect.addEventListener('change', updateChart);
+    endSelect.addEventListener('change', updateChart);
+
+    function addCountryToChart() {
+        const select = document.getElementById('compareCountry');
+        const countryId = select.value;
+        const countryName = select.options[select.selectedIndex].text;
+
+        if (!countryId || loadedCountries.has(countryId)) {
+            alert('This country has been added or is unavailable!');
+            return;
+        }
+
+        fetch(`/co2/api/country_emissions/${countryId}/`)
+            .then(response => response.json())
+            .then(result => {
+                const { years: yList, emissions } = result;
+
+                const start = parseInt(startSelect.value);
+                const end = parseInt(endSelect.value);
+                const startIndex = yList.indexOf(start);
+                const endIndex = yList.indexOf(end) + 1;
+
+                const filteredData = emissions.slice(startIndex, endIndex);
+                const newColor = colorPool[chart.data.datasets.length % colorPool.length];
+
+                chart.data.datasets.push({
+                    label: countryName,
+                    data: filteredData,
+                    fullData: emissions,
+                    borderColor: newColor,
+                    borderWidth:2,
+                    fill: false,
+                    tension: 0.1
+                });
+
+                chart.update();
+                loadedCountries.add(countryId);
+
+                const li = document.createElement('li');
+                li.innerHTML = `${countryName} <button onclick="removeCountryFromChart('${countryId}', '${countryName}', this)">Remove</button>`;
+                countryList.appendChild(li);
+            });
+    }
+
+    function removeCountryFromChart(countryId, countryName, button) {
+        const index = chart.data.datasets.findIndex(ds => ds.label === countryName);
+        if (index > 0) {
+            chart.data.datasets.splice(index, 1);
+            chart.update();
+            loadedCountries.delete(countryId);
+            button.parentElement.remove();
+        }
+    }
+</script>
