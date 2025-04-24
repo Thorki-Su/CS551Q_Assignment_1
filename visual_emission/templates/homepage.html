@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    <!-- <img src="{% static 'images/green.jpg' %}" alt="A green life picture" style="width: 1000px;"> -->
+
+    <h1 style="margin-bottom: 10px;">🌍 Explore Carbon Emissions Around the World</h1>
+    <p style="font-size: 1.05em; color: #555; margin-bottom: 8px;">
+        Over 200 countries & 50+ years of data at your fingertips 📊
+    </p>
+
+    <blockquote style="margin: 10px 0 20px 0; font-style: italic; color: #2e8b57;">
+        {{ quote }}
+    </blockquote>
+
+  
+    <div class="eco-tip-box">
+        <strong>🌿 Today's eco-tip:</strong>
+        <p>{{ eco_tip }}</p>
+    </div>
+
+    <div class="search-container">
+        <h3>🔍 Search a Country or Group</h3>
+
+        {% if messages %}
+            <ul class="message-list">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}-message">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post" class="search-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="search-button">Search</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+<div class="sidebar-links">
+    <a href="{% url 'co2:homepage' %}">Go back to Homepage</a>
+    <a href="{% url 'co2:map' %}">World Map</a>
+    <a href="{% url 'co2:feedback' %}">Contact Us</a>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'co2:logout' %}">Logout</a>
+        {% if user.is_superuser %}
+            <a href="{% url 'co2:admin_dashboard' %}">Admin Dashboard</a>
+        {% endif %}
+    {% else %}
+        <a href="{% url 'co2:login' %}">Login</a>
+        <a href="{% url 'co2:register' %}">Register</a>
+    {% endif %}
+</div>
+
+<div class="scroll-container">
+    <div class="scroll-section">
+        <h3>Country List</h3>
+        <ul>
+            {% for country in countries %}
+                <li class="list_item">
+                    <a href="{% url 'co2:country_detail' country.id %}">
+                        {{ country.country_name }} [{{ country.country_code }}]
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="scroll-section">
+        <h3>Area & Group List</h3>
+        <ul>
+            {% for group in groups %}
+                <li class="list_item">
+                    <a href="{% url 'co2:group_detail' group.id %}">
+                        {{ group.country_name }} [{{ group.country_code }}]
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

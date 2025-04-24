@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+
+{% block title %}
+    {{ country.country_name }}
+{% endblock %}
+<!-- This is data page, which shows the visual emission data of one country -->
+<!-- This page will use main template as parent -->
+{% block content %}
+    <!-- In right part, there will be two parts: country information and visual data -->
+    <!-- there are two kinds of information, for countries and groups, controled by 'is_country' -->
+    <!-- visual data will be shown in line graph or bar gragh -->
+    
+    <!-- <p>{{country.is_country}}</p> -->
+
+    {% if country.is_country == True %}
+        {% include 'country_info.html' %}
+    {% else %}
+        {% include 'group_info.html' %}
+    {% endif %}
+    
+    {% include 'chart.html' %}
+
+    <!-- Download PNG button for countries only -->
+    {% if country.is_country == True %}
+        <a href="{% url 'co2:export_chart_png' country.id %}" class="download-button" download>
+            📤 Download Chart as PNG
+        </a>
+    {% endif %}
+{% endblock %}
