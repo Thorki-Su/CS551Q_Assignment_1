@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&l$sn!u#$!1u5(heuxa*w&1ui5yb)zzkl_f8wgljz4hg$t5&m%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'randomevent-spenddemand-8000.codio-box.uk',
@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
     'trumpetsymbol-dividetina-8000.codio-box.uk',
     'presssharp-gabrielfrozen-8000.codio-box.uk',
     'texasricardo-penguinunique-8000.codio-box.uk',
+    'assignment1-da2a55867328.herokuapp.com',
     'localhost'
 ]
 
@@ -40,7 +41,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://pixelcanal-framenato-8000.codio-box.uk",
     "https://trumpetsymbol-dividetina-8000.codio-box.uk",
     'https://presssharp-gabrielfrozen-8000.codio-box.uk',
-    'https://texasricardo-penguinunique-8000.codio-box.uk'
+    'https://texasricardo-penguinunique-8000.codio-box.uk',
+    'https://assignment1-da2a55867328.herokuapp.com'
 ]
 
 # Application definition
