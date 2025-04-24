@@ -127,7 +127,6 @@ canvas {
 
 .search-container,
 .feedback-container {
-    background-color: #fdfdfd;
     padding: 38px;
     margin: 30px auto 40px auto;
     border-radius: 15px;
@@ -135,6 +134,14 @@ canvas {
     max-width: 700px;
     width: 90%;
     transition: box-shadow 0.3s ease-in-out;
+}
+
+.feedback-container {
+    background-color: #fdfdfd;
+}
+
+.search-container {
+    background-color: #FFFFE0;
 }
 
 .search-container:hover,

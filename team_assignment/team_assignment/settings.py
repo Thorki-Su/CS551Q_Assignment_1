@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     'pixelcanal-framenato-8000.codio-box.uk',
     'trumpetsymbol-dividetina-8000.codio-box.uk',
     'presssharp-gabrielfrozen-8000.codio-box.uk',
+    'texasricardo-penguinunique-8000.codio-box.uk',
     'localhost'
 ]
 
@@ -37,7 +38,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://randomevent-spenddemand-8000.codio-box.uk",
     "https://pixelcanal-framenato-8000.codio-box.uk",
     "https://trumpetsymbol-dividetina-8000.codio-box.uk",
-    'https://presssharp-gabrielfrozen-8000.codio-box.uk'
+    'https://presssharp-gabrielfrozen-8000.codio-box.uk',
+    'https://texasricardo-penguinunique-8000.codio-box.uk'
 ]
 
 # Application definition
