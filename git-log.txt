@@ -1,0 +1,47 @@
+* c4da85f - PEIHENG SU, 27 minutes ago : Ignore local database file
+*   7ffbb50 - PEIHENG SU, 28 minutes ago : Resolve db.sqlite3 conflict, use remote version
+|\  
+| *   b3cc6fb - Thorki Su, 2 days ago : Merge pull request #5 from Thorki-Su/testing
+| |\  
+| | * d5da327 - PEIHENG SU, 2 days ago : Fix some bug and add API test
+| | * cb0d5a3 - VIVIAN DURUEKE, 2 days ago : Add testing file to the app
+| |/  
+* | 8000ec7 - PEIHENG SU, 2 days ago : upload before change branch
+|/  
+* 64cbfc2 - PEIHENG SU, 3 days ago : move all the styles together
+*   f76fb70 - Thorki Su, 3 days ago : Merge pull request #4 from Thorki-Su/maxine-branch
+|\  
+| * ef4f8b1 - PEIHENG SU, 3 days ago : add a tip for password in register and change some style
+| * a409e5e - MAXINE AKOSAH-YIADOM, 3 days ago : Added login, register, and admin dashboard pages; enhanced admin dashboard UI and improved sidebar layout
+|/  
+* 5afa6ef - PEIHENG SU, 3 days ago : fix some little bugs
+*   1ab178b - Thorki Su, 3 days ago : Merge pull request #3 from Thorki-Su/worldmap
+|\  
+| * 7dc2df6 - PEIHENG SU, 3 days ago : Resolved merge conflicts between worldmap and main
+| *   13498ba - PEIHENG SU, 3 days ago : Resolved merge conflicts between worldmap and main
+| |\  
+| |/  
+|/|   
+* |   8fa5b80 - Thorki Su, 3 days ago : Merge pull request #1 from Thorki-Su/durga-branch
+|\ \  
+| * | 2ffb967 - DURGA BHAVANI DANTULURI, 3 days ago : Updated homepage, feedback form, feedback model, PNG chart export, and styling
+|/ /  
+| * 0ba48ad - PEIHENG SU, 3 days ago : upload before merge
+| * 9b95a1d - PEIHENG SU, 4 days ago : Add a world map page
+|/  
+* 77c77dc - PEIHENG SU, 5 days ago : fix a visual error about README
+* 369bddd - PEIHENG SU, 5 days ago : update the README file to version 2.0
+*   3063e94 - PEIHENG SU, 5 days ago : Resolved merge conflicts by keeping theirs
+|\  
+| * 71eef20 - YIFAN WANG, 5 days ago : Add a search form in homepage
+| * 47587ec - YIFAN WANG, 5 days ago : new version of reading command from excel
+| * 8842c93 - YIFAN WANG, 5 days ago : new version of reading command from excel
+* 55446c6 - PEIHENG SU, 5 days ago : Save local changes before merge
+* 407df3a - PEIHENG SU, 6 days ago : fix some bug
+* 2274e1d - PEIHENG SU, 6 days ago : add error control for 404 and 500
+* d6063a0 - PEIHENG SU, 2 weeks ago : Add a homepage link in list and a feedback page
+* 7ee9c11 - PEIHENG SU, 3 weeks ago : Year Control and Country Compare
+* 7345b18 - PEIHENG SU, 3 weeks ago : Basic website templates & line char
+* 88491e7 - PEIHENG SU, 3 weeks ago : Basic framework and Database
+* d7de41d - PEIHENG SU, 4 weeks ago : The very first version
+* 4708da6 - Thorki Su, 4 weeks ago : Initial commit
